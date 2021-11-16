@@ -1,6 +1,6 @@
 import csv
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.common.by import By
 
 
 class GetTheUploads:
@@ -26,7 +26,7 @@ class GetTheUploads:
         print('This channel contains ' + video_count + ' videos!')
         print('-----------------------------------------------------------')
 
-        with open(f'{artist_name}\'s Youtube Channel Uploads.csv', 'w', newline='') as csv_file:
+        with open(f'{artist_name}\'s Youtube Channel Uploads.csv', 'w', newline='', encoding='utf-8') as csv_file:
 
             headings = ['CHANNEL NAME', 'TOTAL VIDEOS', 'SUBSCRIBERS']
 
@@ -50,7 +50,7 @@ class GetTheUploads:
             print('SONG TITLE: ' + video_title)
             artist_name = video.find_element(By.ID, 'video-title')
             artist = str(artist_name.text).split('-')[0].strip()
-            print('ARTIST: ' + artist)
+            print('ARTIST: ' + str(artist))
             vid_length = video.find_element(By.CLASS_NAME, 'style-scope ytd-thumbnail-overlay-time-status-renderer')
             print('LENGTH: ' + str(vid_length.text))
             upload_date = video.find_element(By.ID, 'metadata-line')
@@ -63,7 +63,7 @@ class GetTheUploads:
 
         video_container = self.driver.find_element(By.XPATH, '/html/body/ytd-app/div/ytd-page-manager/ytd-browse/ytd-two-column-browse-results-renderer/div[1]/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-grid-renderer/div[1]').find_elements(By.TAG_NAME, 'ytd-grid-video-renderer')
 
-        with open(f'{artist_name}\'s Youtube Channel Uploads.csv', 'a', newline='') as csv_file:
+        with open(f'{artist_name}\'s Youtube Channel Uploads.csv', 'a', newline='', encoding='utf-8') as csv_file:
 
             column_headings = ['VIDEO TITLE', 'ARTIST', 'DURATION', 'UPLOADED', 'VIEW COUNT']
 
