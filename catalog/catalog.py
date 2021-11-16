@@ -24,7 +24,7 @@ class Catalog(webdriver.Chrome):
             self.quit()
 
     def launch_the_tube(self, search_name):
-        self.get(const.URL + f'/results?search_query={search_name}')
+        self.get(const.BASE_URL + f'/results?search_query={search_name}')
 
     def channel_manoeuvre(self, search_name):
         channels = self.find_elements(By.ID, 'channel-name')
