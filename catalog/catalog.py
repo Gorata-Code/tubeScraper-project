@@ -6,6 +6,7 @@ import catalog.constants as const
 from selenium.webdriver.common.by import By
 from catalog.get_the_uploads import GetTheUploads
 from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.remote.webelement import WebElement
 
 
 def resource_path(relative_path) -> [bytes, str]:
@@ -34,10 +35,10 @@ class Catalog(webdriver.Chrome):
         self.get(const.BASE_URL + f'/results?search_query={search_name}')
 
     def channel_manoeuvre(self, search_name: str) -> None:
-        the_channel = []
+        the_channel: [str] = []
         try:
-            count = 0
-            channels = self.find_elements(By.ID, 'channel-name')
+            count: int = 0
+            channels: [WebElement] = self.find_elements(By.ID, 'channel-name')
             for channel in channels:
                 if count == 8:
                     start_size = self.execute_script("return document.documentElement.scrollHeight")
@@ -47,7 +48,8 @@ class Catalog(webdriver.Chrome):
                     print(f'We have found your channel "{channel.text}".')
                     print('\n\tSwitching to the "VIDEOS" tab. Please wait...\n')
                     the_channel.append(channel)
-                    videos_screen = self.find_element(By.XPATH, '//*[@id="tabsContent"]/tp-yt-paper-tab[2]/div')
+                    videos_screen: WebElement = self.find_element(By.XPATH, '//*[@id="tabsContent"]/tp-yt-paper-tab['
+                                                                            '2]/div')
                     videos_screen.click()
                     input('After your browser has switched to the "VIDEOS" screen and the video thumbnails on\nthe '
                           'first '
