@@ -9,20 +9,20 @@ class GetTheUploads:
         self.driver = driver
 
     def get_channel_name(self) -> WebElement:
-        channel_name = self.driver.find_element(By.XPATH, '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/div['
-                                                          '3]/ytd-c4-tabbed-header-renderer/tp-yt-app-header-layout'
-                                                          '/div/tp-yt-app-header/div[2]/div[2]/div/div[1]/div/div['
-                                                          '1]/ytd-channel-name/div/div/yt-formatted-string')
+        channel_name = self.driver.find_element(By.XPATH,
+                                                '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-browse/div['
+                                                '3]/ytd-c4-tabbed-header-renderer/tp-yt-app-header-layout'
+                                                '/div/tp-yt-app-header/div[2]/div[2]/div/div[1]/div/div['
+                                                '1]/ytd-channel-name/div/div/yt-formatted-string')
         return channel_name
 
     def channel_data(self, artist_name: str) -> None:
-
-        videos_list = self.driver.find_element(By.XPATH, '/html/body/ytd-app/div/ytd-page-manager/ytd-browse/ytd-two'
-                                                         '-column-browse-results-renderer/div['
-                                                         '1]/ytd-section-list-renderer/div['
-                                                         '2]/ytd-item-section-renderer/div[3]/ytd-grid-renderer/div['
-                                                         '1]').find_elements(By.TAG_NAME, 'ytd-grid-video-renderer')
-
+        videos_list = self.driver.find_element(By.XPATH,
+                                               '/html/body/ytd-app/div/ytd-page-manager/ytd-browse/ytd-two-column'
+                                               '-browse-results-renderer/div[1]/ytd-section-list-renderer/div['
+                                               '2]/ytd-item-section-renderer/div[3]/ytd-grid-renderer/div['
+                                               '1]').find_elements(
+            By.TAG_NAME, 'ytd-grid-video-renderer')
         print('\n\t\t-------------------------------------------------------------------------')
         channel_name = str(self.get_channel_name().text)
         print(f'\t\t\t\t---> CHANNEL DATA FOR "{channel_name.title()}" <---')
@@ -46,11 +46,12 @@ class GetTheUploads:
 
     def item_listing(self) -> None:
 
-        video_div = self.driver.find_element(By.XPATH, '/html/body/ytd-app/div/ytd-page-manager/ytd-browse/ytd-two'
-                                                       '-column-browse-results-renderer/div['
-                                                       '1]/ytd-section-list-renderer/div['
-                                                       '2]/ytd-item-section-renderer/div[3]/ytd-grid-renderer/div['
-                                                       '1]').find_elements(By.TAG_NAME, 'ytd-grid-video-renderer')
+        video_div = self.driver.find_element(By.XPATH,
+                                             '/html/body/ytd-app/div/ytd-page-manager/ytd-browse/ytd-two'
+                                             '-column-browse-results-renderer/div['
+                                             '1]/ytd-section-list-renderer/div['
+                                             '2]/ytd-item-section-renderer/div[3]/ytd-grid-renderer/div['
+                                             '1]').find_elements(By.TAG_NAME, 'ytd-grid-video-renderer')
 
         channel_name = str(self.get_channel_name().text)
 
@@ -69,11 +70,11 @@ class GetTheUploads:
 
     def write_to_csv(self, artist_name: str) -> None:
 
-        video_container = self.driver.find_element(By.XPATH, '/html/body/ytd-app/div/ytd-page-manager/ytd-browse/ytd'
-                                                             '-two-column-browse-results-renderer/div['
-                                                             '1]/ytd-section-list-renderer/div['
-                                                             '2]/ytd-item-section-renderer/div['
-                                                             '3]/ytd-grid-renderer/div[1]').find_elements(
+        video_container = self.driver.find_element(By.XPATH,
+                                                   '/html/body/ytd-app/div/ytd-page-manager/ytd-browse/ytd-two-column'
+                                                   '-browse-results-renderer/div[1]/ytd-section-list-renderer/div['
+                                                   '2]/ytd-item-section-renderer/div[3]/ytd-grid-renderer/div['
+                                                   '1]').find_elements(
             By.TAG_NAME, 'ytd-grid-video-renderer')
 
         with open(f'{artist_name}\'s Youtube Channel Uploads.csv', 'a', newline='', encoding='utf-8') as csv_file:
@@ -95,7 +96,7 @@ class GetTheUploads:
                 upload_date = str(uploaded_date.text).split('\n')[-1].strip()
 
                 viewer_count = video.find_element(By.ID, 'metadata-line')
-                view_count = str(viewer_count.text).split('\n')[0].strip()
+                view_count: str = str(viewer_count.text).split('\n')[0].strip()
 
                 video_item = (
                     {'VIDEO TITLE': vid_title, 'ARTIST': artist_name, 'DURATION': vid_length, 'UPLOADED': upload_date,
